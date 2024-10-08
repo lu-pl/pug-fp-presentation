@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-    <img src="../lambda_yellow.png" style="max-width: 10%; height: auto;">
+    <img src="./lambda_yellow.png" style="max-width: 10%; height: auto;">
 </div>
 
 <span style="color: #3776ab;">FP Modules of the Python Standard Library</span>
