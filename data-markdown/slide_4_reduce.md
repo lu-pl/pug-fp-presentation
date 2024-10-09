@@ -18,7 +18,7 @@
 <span style="font-size: 24px">Naive recursive definition of reduce</span>
 
 <pre >
-<code class="python">def simple_recursive_reduce[T](
+<code class="python" data-line-numbers>def simple_recursive_reduce[T](
     f: Callable[[T, T], T], iterable: Iterable[T], initial: T | None = None
 ) -> T:
     first, *rest = iterable
@@ -53,14 +53,14 @@ Function composition refers to the <em>recursive application of a sequence of fu
 <span style="color: #3776ab;">compose</span>
 
 <pre >
-<code class="python">def reductive_compose(*fns):
+<code class="python" data-line-numbers>def reductive_compose(*fns):
     fn, *rest_fns = reversed(fns)
     return lambda value: reduce(lambda x, y: y(x), rest_fns, fn(value))
 </code>
 </pre>
 
 <pre >
-<code class="python">def recursive_compose(*fns):
+<code class="python" data-line-numbers>def recursive_compose(*fns):
     fn, *rest_fns = fns
 
     if rest_fns:
@@ -78,9 +78,9 @@ Function composition refers to the <em>recursive application of a sequence of fu
 
 <span>
 conversion pipelines
-</li>
+</span>
 <pre>
-<code class="python">snake_case_pipeline: Annotated[
+<code class="python" data-line-numbers>snake_case_pipeline: Annotated[
     tuple[Callable[[str], str], ...],
     "Functional components for snake case conversion.",
 ] = (
@@ -90,14 +90,12 @@ conversion pipelines
     str.lstrip,
     str.rstrip,
 )
-</code>
-<code class="python">
+
 to_snake_case: Annotated[Callable[[str], str], "Convert to snake case."] = (
     reductive_compose(*snake_case_pipeline)
 )
 </code>
 </pre>
-</span>
 
 +++
 

@@ -10,7 +10,7 @@
 <span style="font-size: 28px;"><span style="white-space: nowrap">Basic implementation of a caching decorator</span>
 
 <pre>
-<code class="python">def simple_cache[**P, T](f: Callable[P, T]) -> Callable[P, T]:
+<code class="python" data-line-numbers>def simple_cache[**P, T](f: Callable[P, T]) -> Callable[P, T]:
     cache = {}
 
     @wraps(f)
@@ -37,7 +37,7 @@
 
 <span style="font-size: 28px;"><span style="white-space: nowrap">For how long will this sleep?</span>
 
-<pre><code>@simple_cache
+<pre><code data-line-numbers>@simple_cache
 def f(x, y, z=3):
     print("Sleeping...")
     sleep(1)
