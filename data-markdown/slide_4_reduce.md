@@ -75,34 +75,6 @@ Function composition refers to the <em>recursive application of a sequence of fu
 
 <span style="color: #3776ab;">Applications</span>
 
-
-<span>
-conversion pipelines
-</span>
-<pre>
-<code class="python" data-line-numbers>snake_case_pipeline: Annotated[
-    tuple[Callable[[str], str], ...],
-    "Functional components for snake case conversion.",
-] = (
-    partial(re.sub, r"(\s|_)+", "_"),
-    partial(re.sub, r"[^a-z0-9\s_]", ""),
-    str.lower,
-    str.lstrip,
-    str.rstrip,
-)
-
-to_snake_case: Annotated[Callable[[str], str], "Convert to snake case."] = (
-    reductive_compose(*snake_case_pipeline)
-)
-</code>
-</pre>
-
-+++
-
-<span style="color: #ffd343;">functools.reduce</span>
-
-<span style="color: #3776ab;">Applications</span>
-
 <span>
 decorator composition
 </span>
@@ -127,5 +99,33 @@ def f():
 @composed_decorator
 def g():
 	pass
+</code>
+</pre>
+
++++
+
+<span style="color: #ffd343;">functools.reduce</span>
+
+<span style="color: #3776ab;">Applications</span>
+
+
+<span>
+conversion pipelines
+</span>
+<pre>
+<code class="python" data-line-numbers>snake_case_pipeline: Annotated[
+    tuple[Callable[[str], str], ...],
+    "Functional components for snake case conversion.",
+] = (
+    partial(re.sub, r"(\s|_)+", "_"),
+    partial(re.sub, r"[^a-z0-9\s_]", ""),
+    str.lower,
+    str.lstrip,
+    str.rstrip,
+)
+
+to_snake_case: Annotated[Callable[[str], str], "Convert to snake case."] = (
+    reductive_compose(*snake_case_pipeline)
+)
 </code>
 </pre>
