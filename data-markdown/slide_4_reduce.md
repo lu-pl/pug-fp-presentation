@@ -6,9 +6,15 @@
 <pre class="fragment"><code class="python">add(add(add(add(1, 2), 3), 4), 5)  # 15</code></pre>
 
 <pre class="fragment">
-<code class="python">reduce(lambda x, y: ("add", x, y), [1, 2, 3, 4, 5])</code>
-<code class="python"># ('add', ('add', ('add', ('add', 1, 2), 3), 4), 5)</code>
+<code class="python">code: str = reduce(lambda x, y: f"add({x}, {y})", [1, 2, 3, 4, 5])</code>
+<code class="python"># "add(add(add(add(1, 2), 3), 4), 5)"</code>
+<!-- <code class="python">reduce(lambda x, y: ("add", x, y), [1, 2, 3, 4, 5])</code> -->
+<!-- <code class="python"># ('add', ('add', ('add', ('add', 1, 2), 3), 4), 5)</code> -->
 </pre>
+<pre class="fragment">
+<code class="python">eval(code)  # 15</code>
+</pre>
+
 
 +++
 
@@ -53,14 +59,14 @@ Function composition refers to the <em>recursive application of a sequence of fu
 <span style="color: #3776ab;">compose</span>
 
 <pre >
-<code class="python" data-line-numbers>def reductive_compose(*fns):
+<code class="python" data-line-numbers>def reductive_compose[T](*fns: Callable[[T], T]) -> Callable[[T], T]:
     fn, *rest_fns = reversed(fns)
     return lambda value: reduce(lambda x, y: y(x), rest_fns, fn(value))
 </code>
 </pre>
 
 <pre >
-<code class="python" data-line-numbers>def recursive_compose(*fns):
+<code class="python" data-line-numbers>def recursive_compose[T](*fns: Callable[[T], T]) -> Callable[[T], T]:
     fn, *rest_fns = fns
 
     if rest_fns:
@@ -84,8 +90,7 @@ decorator composition
 <code class="python">@decor3
 @decor2
 @decor1
-def f():
-	pass
+def f(): ...
 </code>
 </pre>
 
@@ -97,8 +102,7 @@ def f():
 )
 
 @composed_decorator
-def g():
-	pass
+def f(): ...
 </code>
 </pre>
 

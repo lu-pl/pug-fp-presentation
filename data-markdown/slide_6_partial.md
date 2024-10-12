@@ -65,4 +65,55 @@ partially(2)
 <span style="color: #ffd343;">functools.partial</span>
 
 <span style="font-size: 38px;"><span style="white-space: nowrap">Currying</span>
-<!-- Currying is a functional technique for deriving at most n functions of at least arity 1 from a function of arity n. -->
+
+<pre class="fragment">
+<code class="python" data-line-numbers>def f(x, y, z):
+    return x, y, z
+
+curried_1 = toolz.curry(f)(1)(2)(3)    # (1, 2, 3)
+curried_2 = toolz.curry(f)(1)(2, 3)    # (1, 2, 3)
+curried_3 = toolz.curry(f)(1, 2, 3)    # (1, 2, 3)
+curried_4 = toolz.curry(f, 1, 2, 3)()  # (1, 2, 3)
+</code></pre>
+
+<pre class="fragment">
+<code class="python" data-line-numbers>partial_curried_1 = partial(partial(partial(partial(f), 1), 2), 3)()
+partial_curried_2 = partial(partial(partial(f), 1), 2, 3)()
+partial_curried_3 = partial(partial(f), 1, 2, 3)()
+partial_curried_4 = partial(f, 1, 2, 3)()
+</code></pre>
+
++++
+
+<span style="color: #ffd343;">functools.partial</span>
+
+<span style="font-size: 38px;"><span style="white-space: nowrap">Curry Implementation</span>
+
+<pre class="fragment">
+<code class="python" data-line-numbers>def simple_curry(f, *args, **kwargs):
+    def _wrapper(*more_args, **more_kwargs):
+        if not more_args and not more_kwargs:
+            return f(*args, **kwargs)
+        return simple_curry(
+			f, 
+			*(*args, *more_args), 
+			**(kwargs | more_kwargs)
+		)
+    return _wrapper
+</code></pre>
+
++++
+
+<span style="color: #ffd343;">functools.partial</span>
+
+<span style="font-size: 38px;"><span style="white-space: nowrap">Idea: Currying Pydantic models</span>
+
+<pre>
+<code class="python" data-line-numbers>@CurryModel
+class MyModel(BaseModel):
+    x: str
+    y: int
+    z: tuple[str, int]
+
+model_instance = MyModel(x="1")(y=2)(z=("3", 4))
+</code></pre>
