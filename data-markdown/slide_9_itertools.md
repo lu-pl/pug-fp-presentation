@@ -151,13 +151,14 @@ more_triples: Iterator[_Triple] = ttl(
 	graph: Graph | None = None
 ) -> Graph:
     _graph: Graph = Graph() if graph is None else graph
-
-    for triple in itertools.chain.from_iterable(triples):
-        _graph.add(triple)
-
-    return _graph
-
-graph: Graph = to_graph(triples, more_triples, graph=CLSGraph())
+	
+    return functools.reduce(
+        Graph.add,
+        itertools.chain.from_iterable(triples),
+        _graph
+    )
+	
+graph: Graph = to_graph(triples, more_triples, graph=CRMGraph())
 </code>
 </pre>
 
