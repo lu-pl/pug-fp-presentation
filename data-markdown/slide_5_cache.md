@@ -63,8 +63,8 @@ for args, kwargs in args_kwargs:
 <span style="color: #ffd343;">functools.lru_cache</span>
 
 <span style="font-size: 28px;white-space: nowrap">
-functools.lru_cache provides a functional caching facility with a max_size limit;<br/>
-i.e. if the max_size limit is exceeded, the least recently used entry is popped off the cache.
+functools.lru_cache provides a functional caching facility with a maxsize limit;<br/>
+i.e. if the maxsize limit is exceeded, the least recently used entry is popped off the cache.
 </span>
 
 +++
